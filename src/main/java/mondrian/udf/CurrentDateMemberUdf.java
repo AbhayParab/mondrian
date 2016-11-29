@@ -46,7 +46,7 @@ public class CurrentDateMemberUdf implements UserDefinedFunction {
         // determine the current date
         Object formatArg = arguments[1].evaluateScalar(evaluator);
 
-        final Locale locale = Locale.getDefault();
+        final Locale locale = evaluator.getConnectionLocale() ==null? Locale.getDefault(): evaluator.getConnectionLocale();
         final Format format = new Format((String) formatArg, locale);
         String currDateStr = format.format(getDate(evaluator, arguments));
 
